@@ -10,7 +10,6 @@ module CouchDBTools
     end
 
     def get_replication_status
-      puts "#{@username}:#{@password}@#{@local_server}"
       tasks = ::RestClient.get("http://#{@username}:#{@password}@#{@local_server}:5984/_active_tasks")
       unless tasks["Replication"]
         puts "Replication not running!"
