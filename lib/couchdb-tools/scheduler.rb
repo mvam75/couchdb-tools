@@ -1,12 +1,15 @@
 module CouchDBTools
 
-  scheduler = Rufus::Scheduler.start_new
+  module Scheduler
 
-  scheduler.every '5m' do
-    CouchMonitor.new.get_replication_status
-  end
+	  scheduler = Rufus::Scheduler.start_new
 
-  scheduler.every '1m' do
-    CouchTest.new.run_replication_test
+	  scheduler.every '5m' do
+	    CouchMonitor.new.get_replication_status
+	  end
+
+	  scheduler.every '1m' do
+	    CouchTest.new.run_replication_test
+	  end
   end
 end

@@ -27,7 +27,7 @@ module CouchDBTools
         socket = TCPSocket.open("#{@graphite_server}", "2003")
         socket.write(message)
       rescue => e
-        puts "Unable to process Graphite request. #{e.message}"
+        @log.warn "Unable to process Graphite request. #{e.message}"
       ensure
         socket.close unless socket.nil?
       end
@@ -43,9 +43,9 @@ module CouchDBTools
         target_update_seq = check_couch(dest_url)[0]["status"].sub("W Processed source update #","").to_i
 
         replication_difference = (source_update_seq - target_update_seq)
-        puts replication_difference
+        @log.info replication_difference
       else
-        puts "Replication appears to be down."
+        @log.warn "Replication appears to be down."
       end
       
       graphite(replication_difference)

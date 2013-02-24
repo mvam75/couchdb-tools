@@ -12,11 +12,11 @@ module CouchDBTools
     def get_replication_status
       tasks = ::RestClient.get("http://#{@username}:#{@password}@#{@local_server}:5984/_active_tasks")
       unless tasks["Replication"]
-        puts "Replication not running!"
+        @log.warn "Replication not running!"
         init_replication("#{@remote_server}", "#{@local_server}")
         mailit("Replication not running on "+Socket.gethostname+"!", "Trying to start replication.")
       else
-        puts "Replication is running."
+        @log.info "Replication is running."
       end
     end
 
@@ -44,13 +44,13 @@ module CouchDBTools
           response = ::RestClient.post "http://#{@username}:#{@password}@#{@local_server}:5984/_replicate", config_data.to_json, :content_type => :json
 
           unless response.code == 202
-            puts "Replication to #{target}/#{db} failed with #{response.code}. Please investigate."
+            @log.warn "Replication to #{target}/#{db} failed with #{response.code}. Please investigate."
             mailit("replication to " +Socket.gethostname+"/#{db} has failed with #{response.code}", "Replication has failed from #{source} to #{target}("+Socket.gethostname+"). Please investigate.")
           end
 
         end
       rescue => e
-        puts "#{e.message}"
+        @log.error "#{e.message}"
       end
     end
 

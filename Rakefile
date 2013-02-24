@@ -18,6 +18,7 @@ gem = Gem::Specification.new do |g|
   g.add_runtime_dependency 'mail'
   g.add_runtime_dependency 'rufus-scheduler'
   g.add_runtime_dependency 'rest-client'
+  g.add_runtime_dependency 'eventmachine'
 end
 
 Gem::PackageTask.new(gem) do |p|
