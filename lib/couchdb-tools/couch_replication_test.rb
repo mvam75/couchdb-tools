@@ -33,7 +33,7 @@ module CouchDBTools
       end
     end
 
-    def self.run_replication_test
+    def run_replication_test
       source_url = "http://#{@remote_server}:5984/chef"
       dest_url = "http://#{@username}:#{@password}@#{@local_server}:5984/_active_tasks"
 
