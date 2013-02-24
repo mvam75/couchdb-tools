@@ -1,5 +1,5 @@
 module CouchDBTools
-  class DBLogger
+  module DBLogger
 
     def self.config(options = {})
       file = options['file']
