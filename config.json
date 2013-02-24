@@ -1,0 +1,11 @@
+{
+  "configuration": {
+	"source_host": "",
+	"dest_host": "",
+	"username": "",
+	"password": "",
+	"email_to": "",
+	"email_from": "",
+	"graphite_host": ""
+  }
+}
