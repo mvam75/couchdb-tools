@@ -39,7 +39,7 @@ module CouchDBTools
 
       source_update_seq = check_couch(source_url)["update_seq"]
       
-      if check_couch(phl1_url)[0]["status"]
+      if check_couch(dest_url)[0]["status"]
         target_update_seq = check_couch(dest_url)[0]["status"].sub("W Processed source update #","").to_i
 
         replication_difference = (source_update_seq - target_update_seq)
