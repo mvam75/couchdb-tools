@@ -3,9 +3,10 @@ module CouchDBTools
   class CouchMonitor
 
     def initialize
-      @username = ConfigureTool.configure["configuration"]["username"]
-      @password = ConfigureTool.configure["configuration"]["password"]
-      @local_server = ConfigureTool.configure["configuration"]["dest_host"]
+      @config = ConfigureTool.new.configure
+      @username = @config["configuration"]["username"]
+      @password = @config["configuration"]["password"]
+      @local_server = @config["configuration"]["dest_host"]
     end
 
     def get_replication_status

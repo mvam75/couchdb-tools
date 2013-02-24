@@ -3,13 +3,14 @@ module CouchDBTools
   class CouchTest
 
     def initialize
-      @username = ConfigureTool.configure["configuration"]["username"]
-      @password = ConfigureTool.configure["configuration"]["password"]
-      @local_server = ConfigureTool.configure["configuration"]["dest_host"]
-      @remote_server = ConfigureTool.configure["configuration"]["source_host"]
-      @graphite_server = ConfigureTool.configure["configuration"]["graphite_host"]
-      @from = ConfigureTool.configure["configuration"]["email_from"]
-      @to = ConfigureTool.configure["configuration"]["email_to"]
+      @config = ConfigureTool.new.configure
+      @username = @config["configuration"]["username"]
+      @password = @config["configuration"]["password"]
+      @local_server = @config["configuration"]["dest_host"]
+      @remote_server = @config["configuration"]["source_host"]
+      @graphite_server = @config["configuration"]["graphite_host"]
+      @from = @config["configuration"]["email_from"]
+      @to = @config["configuration"]["email_to"]
     end
 
     def check_couch(url)
