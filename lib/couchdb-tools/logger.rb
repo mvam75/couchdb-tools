@@ -1,5 +1,5 @@
 module CouchDBTools
-  module DBLogger
+  class DBLogger
 
     def self.config(options = {})
       file = options['file']
@@ -16,7 +16,7 @@ module CouchDBTools
       @@log.formatter = proc do |severity, datetime, progname, msg|
        "#{datetime}: [#{severity}] : #{msg}\n"
       end
-      @@log.info "Logger started with a level of #{log_level.upcase}."
+      #@@log.info "Logger started with a level of #{log_level.upcase}."
     end
 
     def self.log

@@ -1,7 +1,7 @@
 module CouchDBTools
 
   class CouchTest
-
+    #TODO: clean this up
     def initialize
       @config = ConfigureTool.new.configure
       @username = @config["configuration"]["username"]
@@ -11,6 +11,7 @@ module CouchDBTools
       @graphite_server = @config["configuration"]["graphite_host"]
       @from = @config["configuration"]["email_from"]
       @to = @config["configuration"]["email_to"]
+      @log = CouchDBTools::DBLogger.log
     end
 
     def check_couch(url)
@@ -43,7 +44,7 @@ module CouchDBTools
         target_update_seq = check_couch(dest_url)[0]["status"].sub("W Processed source update #","").to_i
 
         replication_difference = (source_update_seq - target_update_seq)
-        @log.info replication_difference
+        @log.info "Replication latency: #{replication_difference}"
       else
         @log.warn "Replication appears to be down."
       end
@@ -72,4 +73,4 @@ module CouchDBTools
   end
 
 end
-CouchDBTools::CouchTest.new.run_replication_test
+#CouchDBTools::CouchTest.new.run_replication_test

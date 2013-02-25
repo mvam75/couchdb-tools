@@ -12,6 +12,7 @@ gem = Gem::Specification.new do |g|
   g.description = "Tools to monitor CouchDB replication"
   g.author = "thePlatform"
   g.email = "devops@theplatform.com"
+  g.executables =  FileList.new('bin/**/*').gsub!(/^bin\//,'').to_a
   g.files = Dir.glob(["Rakefile", "config.json"]) + Dir.glob("lib/**/*")
   g.add_runtime_dependency 'json'
   g.add_runtime_dependency 'yajl-ruby'

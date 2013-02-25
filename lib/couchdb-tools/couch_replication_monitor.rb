@@ -1,16 +1,18 @@
 module CouchDBTools
 
   class CouchMonitor
-
+     #TODO: clean this up
     def initialize
       @config = ConfigureTool.new.configure
       @username = @config["configuration"]["username"]
       @password = @config["configuration"]["password"]
       @local_server = @config["configuration"]["dest_host"]
+      @log = CouchDBTools::DBLogger.log
     end
 
     def get_replication_status
       tasks = ::RestClient.get("http://#{@username}:#{@password}@#{@local_server}:5984/_active_tasks")
+      @log.info "Check that replication is running."
       unless tasks["Replication"]
         @log.warn "Replication not running!"
         init_replication("#{@remote_server}", "#{@local_server}")
@@ -58,4 +60,4 @@ module CouchDBTools
 
 end
 
-CouchDBTools::CouchMonitor.new.get_replication_status
+#CouchDBTools::CouchMonitor.new.get_replication_status

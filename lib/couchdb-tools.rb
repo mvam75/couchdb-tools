@@ -11,8 +11,9 @@ Dir[File.join(File.dirname(__FILE__), "**", "*.rb")].each {|file| require file}
 
 module CouchDBTools
 
-  def self.start(opts)
-    DBLogger.config
+  def self.start
+    #DBLogger.config(:file => "~/couch_monitor.log", :level => 'info', :rotation => 'daily')
+    DBLogger.config(ConfigureTool.new.configure["logger"])
 
       begin
         EM.run do
