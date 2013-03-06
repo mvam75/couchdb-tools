@@ -43,7 +43,8 @@ module CouchDBTools
             'target' => "http://#{@username}:#{@password}@#{target}:5984/#{db}",
             'continuous' => true
           }
-          response = ::RestClient.post "http://#{@username}:#{@password}@#{@local_server}:5984/_replicate", config_data.to_json, :content_type => :json
+          @log.info "Sending HTTP POST to #{target}:5984/_replicate"
+          response = ::RestClient.post "http://#{@username}:#{@password}@#{target}:5984/_replicate", config_data.to_json, :content_type => :json
 
           unless response.code == 202
             @log.warn "Replication to #{target}/#{db} failed with #{response.code}. Please investigate."
