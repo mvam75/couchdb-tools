@@ -7,5 +7,9 @@
 	"email_to": "",
 	"email_from": "",
 	"graphite_host": ""
+  },
+  "logger": {
+  	"log_file": "",
+  	"log_level": ""
   }
 }
