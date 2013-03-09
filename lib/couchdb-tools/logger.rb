@@ -2,8 +2,8 @@ module CouchDBTools
   class DBLogger
 
     def self.config(options = {})
-      file = options['file']
-      level = options['level']
+      file = options['log_file']
+      level = options['log_level']
       rotation = options['rotation']
 
       file ||= STDOUT

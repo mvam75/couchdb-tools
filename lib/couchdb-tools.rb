@@ -11,14 +11,15 @@ Dir[File.join(File.dirname(__FILE__), "**", "*.rb")].each {|file| require file}
 
 module CouchDBTools
 
-  def self.start
+  def self.start(opts)
     #DBLogger.config(:file => "~/couch_monitor.log", :level => 'info', :rotation => 'daily')
-    DBLogger.config(ConfigureTool.new.configure["logger"])
+    CouchDBTools::ConfigureTool.configure(opts)
+    DBLogger.config(ConfigureTool.config["logger"])
 
       begin
         EM.run do
-	  Scheduler	
-	end
+	        Scheduler	
+	    end
 
       rescue => e
         DBLogger.log.fatal "Monitor failed with the following issue #{e.message}"

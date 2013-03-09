@@ -1,12 +1,13 @@
 module CouchDBTools
   class ConfigureTool
 
-    def initialize(config = File.join(File.dirname(__FILE__), "../../config.json"))
-      @config = config
+    def self.configure(config)
+    raise ArgumentError, 'Usage: couchdb-tools config.json' if config.nil?
+      @config = JSON.parse(File.read(config))
     end
 
-    def configure
-      JSON.parse(File.read(@config))
+    def self.config
+      @config
     end
 
   end

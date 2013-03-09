@@ -1,21 +1,25 @@
 module CouchDBTools
 
   class CouchMonitor
-     #TODO: clean this up
+
     def initialize
-      @config = ConfigureTool.new.configure
-      @username = @config["configuration"]["username"]
-      @password = @config["configuration"]["password"]
-      @local_server = @config["configuration"]["dest_host"]
       @log = CouchDBTools::DBLogger.log
+      config
     end
 
+    def config
+      data = CouchDBTools::ConfigureTool.config["configuration"]
+      data.each do |k,v|
+        instance_variable_set("@#{k}",v)
+      end
+    end
+    
     def get_replication_status
-      tasks = ::RestClient.get("http://#{@username}:#{@password}@#{@local_server}:5984/_active_tasks")
+      tasks = ::RestClient.get("http://#{@username}:#{@password}@#{@dest_host}:5984/_active_tasks")
       @log.info "Check that replication is running."
       unless tasks["Replication"]
         @log.warn "Replication not running!"
-        init_replication("#{@remote_server}", "#{@local_server}")
+        init_replication("#{@source_host}", "#{@dest_host}")
         mailit("Replication not running on "+Socket.gethostname+"!", "Trying to start replication.")
       else
         @log.info "Replication is running."
@@ -24,8 +28,8 @@ module CouchDBTools
 
     def mailit(subject, body)
       Mail.deliver do
-        from "#{@from}"
-        to "#{@to}"
+        from "#{@email_from}"
+        to "#{@email_to}"
         subject "#{subject}"
         body "#{body}"
       end
@@ -43,7 +47,7 @@ module CouchDBTools
             'target' => "http://#{@username}:#{@password}@#{target}:5984/#{db}",
             'continuous' => true
           }
-          @log.info "Sending HTTP POST to #{target}:5984/_replicate"
+          @log.info "Sending a HTTP POST to #{target}:5984/_replicate"
           response = ::RestClient.post "http://#{@username}:#{@password}@#{target}:5984/_replicate", config_data.to_json, :content_type => :json
 
           unless response.code == 202
