@@ -19,8 +19,10 @@ module CouchDBTools
       @log.info "Check that replication is running."
       unless tasks["Replication"]
         @log.warn "Replication not running!"
-        init_replication("#{@source_host}", "#{@dest_host}")
         mailit("Replication not running on "+Socket.gethostname+"!", "Trying to start replication.")
+        init_replication("#{@source_host}", "#{@dest_host}")
+        sleep 10
+        mailit("Replication was started on "+Socket.gethostname+, "Replication was started sucessfully.") unless task["Replication"].empty?
       else
         @log.info "Replication is running."
       end

@@ -52,7 +52,8 @@ module CouchDBTools
       
       graphite(replication_difference)
 
-      if replication_difference >= 500
+      if replication_difference > 500
+        @log.warn "Replication is over 500!"
         Mail.deliver do
           from "#{@email_from}"
           to "#{@email_to}"
@@ -60,7 +61,8 @@ module CouchDBTools
           body "Replication is behind! DR is #{replication_difference} behind!"
         end
       end
-      if replication_difference >= 5000
+      if replication_difference > 5000
+        @log.fatal "Replication is over 5000! Restarting Couchdb!!"
         Mail.deliver do
           from "#{@email_from}"
           to "#{@email_to}"
