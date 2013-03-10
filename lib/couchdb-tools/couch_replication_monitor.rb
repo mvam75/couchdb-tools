@@ -22,7 +22,7 @@ module CouchDBTools
         mailit("Replication not running on "+Socket.gethostname+"!", "Trying to start replication.")
         init_replication("#{@source_host}", "#{@dest_host}")
         sleep 10
-        mailit("Replication was started on "+Socket.gethostname+, "Replication was started sucessfully.") unless task["Replication"].empty?
+        mailit("Replication was started on "+Socket.gethostname+"!", "Replication was started sucessfully.") unless task["Replication"].empty?
       else
         @log.info "Replication is running."
       end
