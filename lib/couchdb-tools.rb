@@ -7,7 +7,7 @@ require 'json'
 require 'rufus/scheduler'
 require 'eventmachine'
 
-Dir[File.join(File.dirname(__FILE__), "**", "*.rb")].each {|file| require file}
+Dir[File.join(File.dirname(__FILE__), "**", "*.rb")].sort.each {|file| require file}
 
 module CouchDBTools
 
