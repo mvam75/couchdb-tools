@@ -23,7 +23,10 @@ Example:
   "logger": {
    "log_file": "/var/log/couch_replication.log",
    "log_level": "info"
-  }
+  },
+  "scheduler": {
+    "status_timer": "",
+    "test_timer": ""
 }
 ```
 Now execute:
@@ -32,6 +35,4 @@ couchdb-tools config.json
 ```
 Check the log for updates. 
 
-TODO:
 
-[ ] Make the schedule intervals configurable
