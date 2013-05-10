@@ -11,5 +11,9 @@
   "logger": {
   	"log_file": "",
   	"log_level": ""
+  },
+  "scheduler": {
+  	"status_timer": "",
+  	"test_timer": ""
   }
 }
